@@ -1,0 +1,24 @@
+{
+  "name": "namste-react",
+  "version": "1.0.0",
+  "description": "Namaste React by Akshay Saini",
+  "author": "Akshay Saini",
+  "license": "ISC",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "parcel": "^2.9.3",
+    "@babel/core": "^7.24.0",
+    "@babel/preset-react": "^7.24.0"
+  },
+  "keywords": [],
+  "browserslist": [
+    "last 2 versions"
+  ]
+}
