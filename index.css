@@ -27,8 +27,7 @@
 .nav-item > ul > li {
     padding: 10px;
     margin: 0 10px;
-    /* cursor: pointer; */
-    /* transition: background-color 0.3s ease; */
+
 }
 
 .nav-item > ul > li:hover {
