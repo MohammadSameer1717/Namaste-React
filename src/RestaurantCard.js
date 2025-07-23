@@ -1,4 +1,4 @@
-import {resList} from "../utils/MockData";
+ 
 const RestaurantCard = (props) => {
   const { resData} = props;
 
