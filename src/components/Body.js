@@ -1,45 +1,43 @@
 import RestaurantCard from "../RestaurantCard";
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
 
 const Body = () => {
-  // local state vriable - super powerful variable
-  const [ListOfRestaurants, setListOfRestaurant] = useState([]);
-  const [filteredRestaurant, setFilteredRestaurant] = useState([]);
-
+  const [listOfRestaurants, setListOfRestaurants] = useState([]);
+  const [filteredRestaurants, setFilteredRestaurants] = useState([]);
   const [searchText, setSearchText] = useState("");
 
-  // Whenever state variables update, react triangle a reconciliation cycle(re-renders the component)
-  console.log("Body Rendered");
-
   useEffect(() => {
-    fetchData();
+    fetch("http://localhost:3001/api/data")
+      .then((res) => res.json())
+      .then((json) => {
+        const restaurants =
+          json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle
+            ?.restaurants || [];
+
+        setListOfRestaurants(restaurants);
+        setFilteredRestaurants(restaurants); // 👈 Set both on load
+      })
+      .catch((err) => {
+        console.error("❌ Error fetching data:", err.message);
+      });
   }, []);
 
-  const fetchData = async () => {
-    const data = await fetch(
-      "https://www.swiggy.com/mapi/restaurants/list/v5?offset=0&is-seo-homepage-enabled=true&lat=27.18230&lng=78.02520&carousel=true&third_party_vendor=1"
+  const handleSearch = () => {
+    const filtered = listOfRestaurants.filter((res) =>
+      res?.info?.name?.toLowerCase().includes(searchText.toLowerCase())
     );
-
-    const json = await data.json();
-
-    // console.log(
-    //   json.data.cards[5].card.card.gridElements.restaurants
-    // );
-    
-
-    // OPtional chaining
-    setListOfRestaurant(
-      json?.data?.cards[5]?.cards?.cards?.gridElements?.infoWithStyle
-        ?.restaurants
-    );
-    setFilteredRestaurant(
-      json?.data?.cards[5]?.cards?.cards?.gridElements?.infoWithStyle
-        ?.restaurants
-    );
+    setFilteredRestaurants(filtered);
   };
 
-  return ListOfRestaurants.length === 0 ? (
+  const handleTopRated = () => {
+    const topRated = listOfRestaurants.filter(
+      (res) => parseFloat(res?.info?.avgRating) > 4
+    );
+    setFilteredRestaurants(topRated);
+  };
+
+  return listOfRestaurants.length === 0 ? (
     <Shimmer />
   ) : (
     <div className="body">
@@ -49,42 +47,28 @@ const Body = () => {
             type="text"
             className="search-box"
             value={searchText}
-            onChange={(e) => {
-              setSearchText(e.target.value);
-            }}
+            onChange={(e) => setSearchText(e.target.value)}
+            placeholder="Search restaurants..."
           />
-          <button
-            onClick={() => {
-              // filter the restraunt cards and update the ui
-              // searchText
-              console.log(searchText);
-
-              const filteredRestaurants = ListOfRestaurants.filter((res) =>
-                res.data.name.toLowerCase().include(searchText.toLowerCase())
-              );
-
-              setListOfRestaurant(filteredRestaurant);
-            }}
-          >
-            search
-          </button>
+          <button onClick={handleSearch}>Search</button>
         </div>
-        <button
-          className="filter-btn"
-          onClick={() => {
-            const filteredList = ListOfRestaurants.filter(
-              (res) => res.data.avgRating > 4
-            );
-            setListOfRestaurant(filteredList);
-          }}
-        >
+
+        <button className="filter-btn" onClick={handleTopRated}>
           Top Rated Restaurants
         </button>
       </div>
+
       <div className="res-container">
-        {filteredRestaurants.map((restaurant) => (
-          <RestaurantCard key={restaurant?.info?.id} resData={restaurant} />
-        ))}
+        {filteredRestaurants.length > 0 ? (
+          filteredRestaurants.map((restaurant) => (
+            <RestaurantCard
+              key={restaurant?.info?.id}
+              resData={restaurant}
+            />
+          ))
+        ) : (
+          <h3>No restaurants found.</h3>
+        )}
       </div>
     </div>
   );

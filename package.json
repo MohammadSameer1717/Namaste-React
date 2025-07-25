@@ -1,24 +1,31 @@
 {
   "name": "namste-react",
   "version": "1.0.0",
+   "type": "module", 
   "description": "Namaste React by Akshay Saini",
   "author": "Akshay Saini",
   "license": "ISC",
-  "scripts": {
-    "start": "parcel index.html",
-    "build": "parcel build index.html"
+  "keywords": [],
+  "browserslist": [
+    "last 2 versions"
+  ],
+"scripts": {
+  "dev": "nodemon server.js",
+  "start": "concurrently \"npm run server\" \"npm run client\"",
+  "server": "node server.js",
+  "client": "parcel index.html"
   },
   "dependencies": {
+    "concurrently": "^9.2.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "node-fetch": "^3.3.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "parcel": "^2.9.3",
     "@babel/core": "^7.24.0",
-    "@babel/preset-react": "^7.24.0"
-  },
-  "keywords": [],
-  "browserslist": [
-    "last 2 versions"
-  ]
+    "@babel/preset-react": "^7.24.0",
+    "parcel": "^2.9.3"
+  }
 }
