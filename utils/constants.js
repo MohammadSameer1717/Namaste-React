@@ -1,6 +1,10 @@
-// constants.js
-export const CDN_URL = 
-  "https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_208,h_208,c_fit/";
 
-export const LOGO_URL =
-  "https://img.freepik.com/premium-vector/restaurant-logo-design-template_79169-56.jpg?w=2000";
+
+export const CDN_URL =
+  "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/";
+
+export const Logo_URL=
+  "https://static.vecteezy.com/system/resources/previews/010/628/614/original/food-order-logo-mobile-food-logo-online-food-delivery-logo-vector.jpg";
+
+// export const MENU_API =
+//   "https://www.swiggy.com/mapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=26.4804247&lng=80.29115589999999&restaurantId=";

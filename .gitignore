@@ -1,5 +1,5 @@
 node_modules
-dist/
+dist
 .parcel-cache
+package.json
 package-lock.json
-mockData.js
