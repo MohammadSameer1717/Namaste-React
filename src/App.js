@@ -9,6 +9,7 @@ import Cart from "./components/Cart.js";
 import Error from "./components/Error.js";
 import RestaurantPage from "./components/RestaurantPage.js";
 
+
 //lazy loading
 const Grocery = lazy(() => import("./components/Grocery.js"));
 const About = lazy(() => import("./components/About.js"));
